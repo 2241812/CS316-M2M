@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M2M Shuttle Bravo - Profile</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -33,9 +33,13 @@
                 <span>Edit Profile</span>
                 <i class="fas fa-pencil settings-icon"></i>
             </div>
-            <div class="settings-item no-border">
+            <div class="settings-item">
                 <span>Change Password</span>
                 <i class="fas fa-lock settings-icon"></i>
+            </div>
+            <div class="settings-item no-border clickable btn-logout" style="cursor: pointer;">
+                <span style="color: #E02B2B; font-weight: 600;">Log Out</span>
+                <i class="fas fa-sign-out-alt settings-icon" style="color: #E02B2B;"></i>
             </div>
         </div>
 
@@ -84,6 +88,8 @@
         </div>
         
     </div>
+
+    <script src="assets/js/main.js"></script>
 
 </body>
 </html>

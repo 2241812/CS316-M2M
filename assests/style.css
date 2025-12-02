@@ -1,0 +1,1202 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+    /* Added padding for small screens so the tall form doesn't touch edges */
+    padding: 20px 0; 
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Logo Area Styles */
+.logo-area {
+    margin-bottom: 20px; /* Reduced slightly to fit taller form */
+    text-align: center;
+}
+
+.logo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    color: #E02B2B;
+    font-size: 40px; 
+}
+
+.logo-text h1 {
+    color: #E02B2B;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1;
+}
+
+.logo-text p {
+    font-size: 10px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 0.5px;
+    font-style: italic;
+}
+
+/* Card Styles */
+.login-card {
+    background: #ffffff;
+    width: 100%;
+    border-radius: 24px;
+    padding: 30px 30px; /* Reduced top padding slightly */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.login-header {
+    text-align: center;
+    color: #E02B2B;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    line-height: 1.2;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 15px; /* Reduced slightly to compact the tall form */
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    color: #555; /* Slightly darker to match image */
+    margin-bottom: 6px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s;
+    background-color: #fff;
+}
+
+input::placeholder {
+    color: #bbb;
+}
+
+input:focus {
+    border-color: #E02B2B;
+}
+
+/* Password Eye Icon */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* NEW: Password Hint Text */
+.password-hint {
+    font-size: 10px;
+    color: #666;
+    margin-top: -8px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    padding-left: 2px;
+}
+
+/* Button Styles */
+.btn-login {
+    width: 100%;
+    background-color: #F4B8B8; 
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50px; 
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #e69d9d;
+}
+
+/* Footer Text */
+.legal-text {
+    font-size: 11px;
+    color: #444;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.legal-text a {
+    color: #444;
+    text-decoration: underline;
+}
+
+.signup-text {
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+}
+
+.signup-text a {
+    color: #E02B2B;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+/* --- NEW STYLES FOR PROFILE PAGE --- */
+
+/* Adjust container for scrolling profile */
+.profile-container {
+    justify-content: flex-start;
+    padding-bottom: 80px; /* Space for bottom nav */
+}
+
+.small-logo {
+    margin-bottom: 20px;
+    transform: scale(0.8); /* Make logo slightly smaller */
+}
+
+/* User Header */
+.user-profile-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.user-avatar {
+    font-size: 80px;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.user-profile-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+.user-profile-header p {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Settings Cards - Making them look like the screenshot */
+.settings-card {
+    background: #ffffff;
+    width: 100%;
+    border-radius: 24px; /* Matches the rounded corners in the image */
+    padding: 20px 25px;
+    
+    /* Stronger border so the box is clearly visible */
+    border: 1px solid #cfcfcf; 
+    
+    /* Soft shadow to lift it off the page */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    
+    margin-bottom: 20px;
+}
+
+.settings-card h4 {
+    font-size: 15px;
+    font-weight: 800; /* Bold heading like "Personal Info" */
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    
+    /* The horizontal line between items */
+    border-bottom: 1px solid #e5e5e5; 
+    
+    font-size: 14px;
+    color: #444; /* Darker gray text */
+    font-weight: 400;
+}
+
+/* Removes the border from the last item so it doesn't touch the bottom of the card */
+.settings-item.no-border {
+    border-bottom: none;
+    padding-bottom: 5px;
+}
+
+.settings-icon {
+    font-size: 16px;
+    color: #111; /* Solid black icons */
+}
+/* TOGGLE SWITCH STYLES */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #E02B2B; /* Red when on */
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+/* BOTTOM NAVIGATION BAR */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-item {
+    font-size: 28px; 
+    color: #1a1a1a; 
+    cursor: pointer;
+    transition: color 0.2s;
+    
+    /* NEW: Removes the underline from the link */
+    text-decoration: none; 
+    
+    /* NEW: Ensures the clickable area is big enough */
+    padding: 10px 20px; 
+}
+
+.nav-item.active {
+    color: #E02B2B; 
+}
+
+.nav-item:hover {
+    color: #E02B2B; 
+}
+
+/* ... inside style.css ... */
+
+input {
+    width: 100%;
+    padding: 14px 15px;
+    
+    /* CHANGE 1: Thicker and darker border */
+    border: 2px solid #777; 
+    
+    /* CHANGE 2: Slight background color to make the box pop */
+    background-color: #f9f9f9;
+    
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    font-weight: 500; /* Makes text inside slightly bolder */
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    /* When you click inside, it turns red and white */
+    border-color: #E02B2B;
+    background-color: #ffffff;
+}
+
+input::placeholder {
+    color: #888; /* Makes the placeholder text slightly darker too */
+}
+
+
+/* --- NEW STYLES FOR MAP PAGE --- */
+
+.map-page-container {
+    padding: 10px 0;
+    height: 100vh;
+    justify-content: flex-start;
+}
+
+/* Map Area */
+.map-wrapper {
+    width: 100%;
+    flex-grow: 1; /* Fills available space */
+    background-color: #f0f0f0;
+    margin-bottom: -20px; /* Pulls the card up slightly */
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid #eee;
+    min-height: 300px;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Booking Card (Floating at bottom) */
+.booking-card {
+    background: white;
+    width: 100%;
+    max-width: 360px;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    z-index: 10;
+    margin-bottom: 70px; /* Space for bottom nav */
+}
+
+/* Route Selector (The From/To box) */
+.route-selector {
+    background: #f9f9f9;
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+}
+
+/* The visual dots and line on the left */
+.route-visuals {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.red-dot {
+    background-color: #E02B2B;
+}
+
+.arrow-dot {
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #555; /* Inverted triangle shape */
+    border-radius: 0;
+}
+
+.line {
+    width: 2px;
+    height: 30px; /* Height of the connecting line */
+    background: #ccc;
+    margin: 4px 0;
+    border-left: 2px dotted #ccc; /* Optional: Make it dotted */
+}
+
+/* Route Text inputs */
+.route-inputs {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.route-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #444;
+    padding-bottom: 8px;
+    padding-top: 2px;
+}
+
+.route-item.border-bottom {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+}
+
+.route-item i {
+    color: #E02B2B;
+    font-size: 12px;
+}
+
+/* Passenger Counter */
+.passenger-counter {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 50px;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.passenger-counter .label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.counter-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.counter-icon {
+    font-size: 24px;
+    color: #E02B2B;
+    cursor: pointer;
+}
+
+.count-number {
+    font-size: 16px;
+    font-weight: 600;
+    color: #E02B2B;
+}
+
+/* Confirm Button Adjustment */
+.confirm-btn {
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: #cc0000; /* Slightly darker red for confirm */
+    font-weight: 600;
+}
+
+
+/* --- NEW STYLES FOR HISTORY PAGE --- */
+
+/* Search Bar */
+.search-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 40px; /* Space for icons */
+    border-radius: 50px;
+    border: 1px solid #777;
+    background-color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.mic-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+/* Section Headers */
+.section-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #000;
+    width: 100%;
+}
+
+/* History Card & List */
+.history-card {
+    margin-bottom: 25px; /* Space between upcoming and past */
+    padding: 20px;
+}
+
+.trip-info h4, .history-item h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.trip-info h4 i, .history-item h4 i {
+    font-size: 12px;
+    margin: 0 5px;
+}
+
+.trip-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 10px 0;
+}
+
+/* Cancel Button (Red) */
+.btn-cancel {
+    background-color: #D32F2F; /* Darker Red */
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Past Bookings List */
+.history-list {
+    background: white;
+    border-radius: 24px;
+    padding: 0 20px;
+    border: 1px solid #eee; /* Light border around the whole list */
+    margin-bottom: 80px; /* Space for bottom nav */
+}
+
+.history-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.history-item.no-border {
+    border-bottom: none;
+}
+
+/* Status Badges (Completed / Cancelled) */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 500;
+    color: white;
+    margin-top: 5px;
+}
+
+.status-badge.completed, .status-badge.cancelled {
+    background-color: #F4B8B8; /* Pale Pink from your design */
+    color: white;
+}
+
+
+/* --- NEW STYLES FOR DRIVER DASHBOARD --- */
+
+.driver-container {
+    padding: 15px 20px;
+    align-items: stretch; /* Stretches items to full width */
+}
+
+/* Driver Header */
+.driver-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 0 5px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    color: #000;
+}
+
+.small-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.notification-icon {
+    position: relative;
+    font-size: 22px;
+    color: #000;
+}
+
+.notification-icon .dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+/* Trip Cards (Grey Background) */
+.gray-card {
+    background-color: #dcdcdc; /* The grey color from your image */
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #000;
+    text-align: left;
+}
+
+.sub-text {
+    font-size: 12px;
+    color: #333;
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.booking-status {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.booking-status .label {
+    font-weight: 600;
+    display: block;
+}
+
+.booking-status .count {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+}
+
+.time-info {
+    font-size: 11px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Status Pills (On Route, Delayed, etc) */
+.status-pills {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.pill {
+    background: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    flex: 1; /* Makes them equal width */
+}
+
+/* Action Buttons (Red) */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.btn-action {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-action.red {
+    flex: 1;
+}
+
+.btn-action.full-width {
+    width: 100%;
+    margin-top: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Upcoming Trips Styling */
+.upcoming-item {
+    text-align: left;
+    padding: 10px 0;
+}
+
+.trip-details {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #222;
+}
+
+.divider-black {
+    height: 1px;
+    background-color: #000;
+    margin: 5px 0;
+}
+
+/* --- NEW STYLES FOR ADMIN DASHBOARD --- */
+
+/* Ensure admin view stretches full width like driver view */
+.admin-view {
+    align-items: stretch;
+}
+
+/* Headings (Key Metrics, Quick Actions, etc.) */
+.admin-view h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 20px 0 15px 0;
+    color: #000;
+}
+
+/* Metrics Grid Layout */
+.metrics-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 30%; /* Ensures three items fit nicely */
+}
+
+/* Metric Labels */
+.metric-item span:first-child {
+    font-size: 11px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Metric Big Red Numbers */
+.metric-value {
+    font-size: 28px;
+    color: #E02B2B;
+    font-weight: 700;
+}
+
+/* Admin Action Buttons (Big Red Buttons) */
+.btn-admin-action {
+    width: 100%;
+    background-color: #E02B2B;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50px; /* Pill shape */
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Slight shadow */
+    transition: background-color 0.2s;
+}
+
+.btn-admin-action:hover {
+    background-color: #cc0000;
+}
+
+/* Feed Placeholder Gray Box */
+.feed-placeholder {
+    width: 100%;
+    height: 150px;
+    background-color: #dcdcdc; /* Matches the gray from the image */
+    border-radius: 15px;
+}
+
+
+/* --- NEW STYLES FOR SCHEDULE PAGE --- */
+
+/* Header with Back Arrow */
+.schedule-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+.back-link {
+    color: #000;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+/* Action Row (Title + Save Button) */
+.action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.action-row h3 {
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+}
+
+.btn-save {
+    background-color: #cc0000; /* Red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Schedule Form Styles */
+.form-group-schedule {
+    margin-bottom: 20px;
+}
+
+.form-group-schedule label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* The Gray Display Boxes (looks like readonly inputs) */
+.gray-input-box {
+    background-color: #e0e0e0; /* Distinct gray from screenshot */
+    padding: 12px 15px;
+    border-radius: 4px; /* Slightly sharper corners as per image */
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+}
+
+.gray-input-box.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Real Input Fields (for Driver) */
+.gray-input-field {
+    width: 100%;
+    background-color: #e0e0e0;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 4px;
+    font-size: 12px;
+    outline: none;
+}
+
+/* Days List */
+.days-list {
+    margin-top: 5px;
+}
+
+.day-option {
+    font-size: 12px;
+    color: #333;
+    padding: 8px 0;
+    font-weight: 500;
+}
+
+/* Notify Row */
+.notify-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* --- FUNCTIONAL SCHEDULE STYLES --- */
+
+/* Style the Select Dropdown to look like the gray box */
+.custom-select {
+    width: 100%;
+    border: none;
+    outline: none;
+    appearance: none; /* Removes default arrow */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: 10px auto;
+    cursor: pointer;
+}
+
+/* Style the Time Input */
+input[type="time"].gray-input-box {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Interactive Days of Week */
+.day-option {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px; /* Slight rounded corners */
+    padding: 10px; /* More clickable area */
+    border: 1px solid transparent;
+}
+
+.day-option:hover {
+    background-color: #f0f0f0; /* Light gray on hover */
+}
+
+/* The Active State (When clicked) */
+.day-option.active {
+    background-color: #E02B2B; /* Red Background */
+    color: white; /* White Text */
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(224, 43, 43, 0.3);
+}
+
+/* --- UPDATED DRIVER STYLES --- */
+
+/* Clickable Items Cursor */
+.clickable {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.clickable:active {
+    transform: scale(0.95);
+}
+
+/* Header Live Badge */
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.live-badge {
+    background-color: #E02B2B;
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Progress Bar for Passengers */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #bbb;
+    border-radius: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #E02B2B;
+    border-radius: 10px;
+}
+
+/* Better Time Layout */
+.time-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #eaeaea;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-box span {
+    font-size: 10px;
+    color: #666;
+}
+
+.time-box strong {
+    font-size: 14px;
+    color: #000;
+}
+
+.time-divider {
+    width: 1px;
+    height: 30px;
+    background: #ccc;
+}
+
+/* INTERACTIVE PILLS */
+.pill {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.pill:hover {
+    background-color: #f0f0f0;
+}
+
+/* Active State Colors */
+.pill.active {
+    background-color: #E02B2B; /* Default Red */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+/* Specific colors for states when active */
+.pill.active.status-delayed {
+    background-color: #ff9800; /* Orange */
+}
+
+.pill.active.status-completed {
+    background-color: #4CAF50; /* Green */
+}
+
+/* Upcoming Items Redesign */
+.upcoming-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.date-box {
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 50px;
+}
+
+.date-box .month { font-size: 8px; font-weight: 700; }
+.date-box .day { font-size: 16px; font-weight: 700; line-height: 1; }
+
+.trip-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.trip-text strong { font-size: 13px; color: #000; }
+.trip-text span { font-size: 11px; color: #333; }
+.trip-text small { font-size: 10px; color: #666; }
+
+/* Accident Button styling */
+.warning {
+    background-color: #ffcc00; /* Warning Yellow */
+    color: #000;
+    border: 2px solid #e6b800;
+}
+
+.warning:hover {
+    background-color: #e6b800;
+}

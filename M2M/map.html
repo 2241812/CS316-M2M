@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M2M Shuttle Bravo - Book Ride</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 </head>
 <body>
 
@@ -22,14 +25,10 @@
         </div>
 
         <div class="map-wrapper">
-            <img src="map-screenshot.png" alt="Map Route" class="map-image" onerror="this.style.display='none'">
-            <div class="map-fallback" style="background:#eee; width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">
-                Map Image Here
-            </div>
+            <div id="map" style="width: 100%; height: 100%; min-height: 350px;"></div>
         </div>
 
         <div class="booking-card">
-            
             <div class="route-selector">
                 <div class="route-visuals">
                     <div class="dot red-dot"></div>
@@ -39,11 +38,11 @@
                 
                 <div class="route-inputs">
                     <div class="route-item border-bottom">
-                        <span>SLU Maryheights Campus, Bakakeng</span>
+                        <span id="route-start">Loading Route...</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="route-item">
-                        <span>Saint Louis University, CH9...</span>
+                        <span id="route-end">Loading Route...</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
@@ -52,16 +51,13 @@
             <div class="passenger-counter">
                 <span class="label">Passenger</span>
                 <div class="counter-controls">
-                    <i class="fa-solid fa-circle-minus counter-icon" onclick="decreaseCount()"></i>
-                    
+                    <i class="fa-solid fa-circle-minus counter-icon" id="btn-decrease"></i>
                     <span class="count-number" id="passenger-count">1</span>
-                    
-                    <i class="fa-solid fa-circle-plus counter-icon" onclick="increaseCount()"></i>
+                    <i class="fa-solid fa-circle-plus counter-icon" id="btn-increase"></i>
                 </div>
             </div>
 
-            <button class="btn-login confirm-btn">Confirm</button>
-
+            <button class="btn-login confirm-btn" id="btn-confirm">Confirm</button>
         </div>
 
         <div class="bottom-nav">
@@ -77,25 +73,7 @@
         </div>
     </div>
 
-    <script>
-        // Start the count at 1
-        let count = 1;
-        
-        // Find the number text on the screen
-        const countDisplay = document.getElementById('passenger-count');
-
-        function increaseCount() {
-            count++; // Add 1
-            countDisplay.innerText = count; // Update the screen
-        }
-
-        function decreaseCount() {
-            if (count > 1) { // Only subtract if count is greater than 1
-                count--; 
-                countDisplay.innerText = count; // Update the screen
-            }
-        }
-    </script>
-
-</body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="assets/js/main.js"></script> <script src="assets/js/map.js"></script>  </body>
 </html>
