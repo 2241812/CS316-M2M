@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2M Shuttle Bravo - Book Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container map-page-container">
+        <div class="logo-area small-logo">
+            <div class="logo-placeholder">
+                <i class="fas fa-layer-group logo-icon"></i> 
+                <div class="logo-text">
+                    <h1>M2M</h1>
+                    <p>SHUTTLE BRAVO</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-wrapper">
+            <img src="map-screenshot.png" alt="Map Route" class="map-image" onerror="this.style.display='none'">
+            <div class="map-fallback" style="background:#eee; width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">
+                Map Image Here
+            </div>
+        </div>
+
+        <div class="booking-card">
+            
+            <div class="route-selector">
+                <div class="route-visuals">
+                    <div class="dot red-dot"></div>
+                    <div class="line"></div>
+                    <div class="dot arrow-dot"></div>
+                </div>
+                
+                <div class="route-inputs">
+                    <div class="route-item border-bottom">
+                        <span>SLU Maryheights Campus, Bakakeng</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="route-item">
+                        <span>Saint Louis University, CH9...</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="passenger-counter">
+                <span class="label">Passenger</span>
+                <div class="counter-controls">
+                    <i class="fa-solid fa-circle-minus counter-icon" onclick="decreaseCount()"></i>
+                    
+                    <span class="count-number" id="passenger-count">1</span>
+                    
+                    <i class="fa-solid fa-circle-plus counter-icon" onclick="increaseCount()"></i>
+                </div>
+            </div>
+
+            <button class="btn-login confirm-btn">Confirm</button>
+
+        </div>
+
+        <div class="bottom-nav">
+            <a href="profile.html" class="nav-item">
+                <i class="fa-solid fa-circle-user"></i>
+            </a>
+            <a href="map.html" class="nav-item active">
+                <i class="fa-solid fa-compass"></i>
+            </a>
+            <a href="history.html" class="nav-item">
+                <i class="fa-regular fa-clock" style="font-weight: 600;"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Start the count at 1
+        let count = 1;
+        
+        // Find the number text on the screen
+        const countDisplay = document.getElementById('passenger-count');
+
+        function increaseCount() {
+            count++; // Add 1
+            countDisplay.innerText = count; // Update the screen
+        }
+
+        function decreaseCount() {
+            if (count > 1) { // Only subtract if count is greater than 1
+                count--; 
+                countDisplay.innerText = count; // Update the screen
+            }
+        }
+    </script>
+
+</body>
+</html>

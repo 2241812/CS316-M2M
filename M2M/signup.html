@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2M Shuttle Bravo - Create Account</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-area">
+            <div class="logo-placeholder">
+                <i class="fas fa-layer-group logo-icon"></i> 
+                <div class="logo-text">
+                    <h1>M2M</h1>
+                    <p>SHUTTLE BRAVO</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-card">
+            <h2 class="login-header">Create an <br>Account</h2>
+
+            <form action="#">
+                <div class="form-group">
+                    <label for="name">What should we call you?</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your profile name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">What is your email?</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Create a password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter your password">
+                        <i class="fa-solid fa-eye-slash password-toggle"></i>
+                    </div>
+                </div>
+
+                <p class="password-hint">
+                    Use 8 or more characters with a mix of letters, numbers & symbols
+                </p>
+
+                <div class="form-group">
+                    <label for="confirm-password">Confirm password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
+                        <i class="fa-solid fa-eye-slash password-toggle"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login">Create account</button>
+
+                <div class="legal-text">
+                    By creating an account, you agree to the<br>
+                    <a href="#">Terms of use</a> and <a href="#">Privacy Policy</a>.
+                </div>
+
+                <div class="signup-text">
+                    Already have an account? <a href="index.html">Log in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

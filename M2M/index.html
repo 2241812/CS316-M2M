@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2M Shuttle Bravo - Sign In</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-area">
+            <div class="logo-placeholder">
+                <i class="fas fa-layer-group logo-icon"></i> 
+                <div class="logo-text">
+                    <h1>M2M</h1>
+                    <p>SHUTTLE BRAVO</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-card">
+            <h2 class="login-header">Sign in</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email or Username</label>
+                    <input type="text" id="email" name="email" onkeyup="checkInputs()">
+                </div>
+                <div class="form-group">
+                    <label for="password">Your password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" onkeyup="checkInputs()">
+                        <i class="fa-solid fa-eye-slash password-toggle"></i>
+                    </div>
+                </div>
+                
+                <button type="button" id="btn-login" class="btn-login" onclick="handleLogin()">Log in</button>
+
+                <div class="legal-text">
+                    By continuing, you agree to the<br>
+                    <a href="#">Terms of use</a> and <a href="#">Privacy Policy</a>.
+                </div>
+                <div class="signup-text">
+                    Don't have an account? <a href="signup.html">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function checkInputs() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('btn-login');
+
+            if(email.length > 0 && pass.length > 0) {
+                btn.style.backgroundColor = '#E02B2B';
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.style.backgroundColor = '#F4B8B8';
+            }
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+
+            // --- UPDATED LOGIN LOGIC ---
+
+            // 1. Check for ADMIN credentials
+            if (email === "admin" && pass === "admin") {
+                window.location.href = "admin.html";
+            
+            // 2. Check for DRIVER credentials
+            } else if (email === "driver" && pass === "driver") {
+                window.location.href = "driver.html";
+
+            // 3. Check for PASSENGER (if fields aren't empty)
+            } else if (email.length > 0 && pass.length > 0) {
+                window.location.href = "profile.html";
+            
+            } else {
+                alert("Please enter your username and password.");
+            }
+        }
+    </script>
+</body>
+</html>
