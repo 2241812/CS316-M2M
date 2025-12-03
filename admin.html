@@ -9,6 +9,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text">
+                <h1 style="font-size: 24px; color: #E02B2B; font-style: italic;">M2M</h1>
+                <p style="font-size: 8px; font-weight: 700;">SHUTTLE BRAVO</p>
+            </div>
+            <i class="fas fa-times close-btn" id="close-sidebar"></i>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="admin.html" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="manage_schedule.html"><i class="far fa-calendar-alt"></i> Manage Schedules</a></li>
+            <li><a href="manage_shuttles.html"><i class="fas fa-bus"></i> Manage Shuttles</a></li>
+            <li><a href="manage_drivers.html"><i class="fas fa-users"></i> Manage Drivers</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a class="logout-link btn-logout" style="color: #E02B2B; font-weight: 600; cursor: pointer;">
+                <i class="fas fa-sign-out-alt" style="color: #E02B2B;"></i> Log Out
+            </a>
+        </div>
+    </div>
 
     <div class="container driver-container admin-view">
         
@@ -21,7 +45,7 @@
                     <p style="font-size: 6px;">SHUTTLE BRAVO</p>
                 </div>
             </div>
-            <div class="notification-icon">
+            <div class="notification-icon" onclick="openModal('notification-modal')" style="cursor: pointer;">
                 <i class="fas fa-bell"></i>
                 <span class="dot"></span>
             </div>
@@ -31,26 +55,59 @@
         <div class="metrics-grid">
             <div class="metric-item">
                 <span>Total bookings today</span>
-                <span class="metric-value">150</span>
+                <span class="metric-value" id="metric-bookings">Loading...</span>
             </div>
             <div class="metric-item">
                 <span>Active Shuttles</span>
-                <span class="metric-value">10/12</span>
+                <span class="metric-value" id="metric-shuttles">Loading...</span>
             </div>
             <div class="metric-item">
-                <span>Faculty Priority booking</span>
-                <span class="metric-value">25</span>
+                <span>Pending Requests</span>
+                <span class="metric-value" id="metric-priority">Loading...</span>
             </div>
         </div>
 
         <h3>Quick Actions</h3>
-<button class="btn-admin-action" onclick="window.location.href='schedule.html'">Manage Schedules</button>
-<button class="btn-admin-action">Send Announcement</button>
+        <button class="btn-admin-action" onclick="window.location.href='manage_schedule.html'">Manage Schedules</button>
+        <button class="btn-admin-action" onclick="openModal('announcement-modal')">Send Announcement</button>
 
-        <h3>Read Activity Feed</h3>
-        <div class="feed-placeholder"></div>
+        <h3 style="margin-top: 25px;">Activity Feed</h3>
+        <div class="inline-feed-container">
+            <ul class="feed-list" id="activity-feed-list">
+                <li class="feed-item" style="justify-content: center; color: #999;">Loading activities...</li>
+            </ul>
+        </div>
 
     </div>
 
+    <div id="announcement-modal" class="custom-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('announcement-modal')">&times;</span>
+            <div class="widget-header" style="margin-top: 0;">
+                <h3><i class="fas fa-bullhorn" style="color: #E02B2B; margin-right: 10px;"></i> Send Announcement</h3>
+            </div>
+            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Post a message to all drivers and staff.</p>
+            <textarea id="announce-input" class="announcement-area" rows="5" placeholder="Type your announcement here..."></textarea>
+            <button class="btn-announce" onclick="sendAnnouncement()">
+                <i class="fas fa-paper-plane"></i> Post Message
+            </button>
+        </div>
+    </div>
+
+    <div id="notification-modal" class="custom-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('notification-modal')">&times;</span>
+            <div class="widget-header" style="margin-top: 0;">
+                <h3><i class="fas fa-bell" style="color: #E02B2B; margin-right: 10px;"></i> Notifications</h3>
+                <span class="badge" style="background: #E02B2B; color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px;">New</span>
+            </div>
+            <ul class="feed-list" id="notification-list">
+                <li class="feed-item" style="justify-content: center; color: #999;">Loading notifications...</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/admin_dashboard.js"></script>
 </body>
 </html>

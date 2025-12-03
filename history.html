@@ -23,48 +23,18 @@
 
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search">
+            <input type="text" class="search-input" placeholder="Search bookings...">
             <i class="fas fa-microphone mic-icon"></i>
         </div>
 
         <h3 class="section-title">Upcoming Bookings</h3>
-        <div class="booking-card history-card">
-            <div class="trip-info">
-                <h4>Mary Heights <i class="fas fa-arrow-right"></i> SLU MAIN</h4>
-                <p class="trip-date">November 3, 2025 - 7:30 AM</p>
-                <div class="divider"></div>
-                <button class="btn-cancel">Cancel</button>
-            </div>
+        <div id="upcoming-container">
+            <p style="text-align:center; color:#ccc; padding:20px;">Loading...</p>
         </div>
 
         <h3 class="section-title">Past Bookings</h3>
-        <div class="history-list">
-            
-            <div class="history-item">
-                <h4>Mary Heights <i class="fas fa-arrow-right"></i> SLU MAIN</h4>
-                <p class="trip-date">October 28, 2025 - 10:30 AM</p>
-                <span class="status-badge completed">Completed</span>
+        <div class="history-list" id="past-container">
             </div>
-
-            <div class="history-item">
-                <h4>SLU Main <i class="fas fa-arrow-right"></i> Mary Heights</h4>
-                <p class="trip-date">October 25, 2025 - 3:30 PM</p>
-                <span class="status-badge completed">Completed</span>
-            </div>
-
-            <div class="history-item">
-                <h4>Mary Heights <i class="fas fa-arrow-right"></i> SLU MAIN</h4>
-                <p class="trip-date">October 21, 2025 - 1:30 PM</p>
-                <span class="status-badge cancelled">Cancelled</span>
-            </div>
-
-            <div class="history-item no-border">
-                <h4>Mary Heights <i class="fas fa-arrow-right"></i> 7 11</h4>
-                <p class="trip-date">October 18, 2025 - 7:30 AM</p>
-                <span class="status-badge completed">Completed</span>
-            </div>
-
-        </div>
 
         <div class="bottom-nav">
             <a href="profile.html" class="nav-item">
@@ -74,9 +44,13 @@
                 <i class="fa-solid fa-compass"></i>
             </a>
             <a href="history.html" class="nav-item active">
-                <i class="fa-solid fa-clock"></i> </a>
+                <i class="fa-solid fa-clock"></i> 
+            </a>
         </div>
     </div>
-<script src="assets/js/main.js"></script>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/history.js"></script>
+
 </body>
 </html>

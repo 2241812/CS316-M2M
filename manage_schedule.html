@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2M Admin - Manage Schedules</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-grid .full-width {
+            grid-column: span 2;
+        }
+        .schedule-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-grid .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text">
+                <h1 style="font-size: 24px; color: #E02B2B; font-style: italic;">M2M</h1>
+                <p style="font-size: 8px; font-weight: 700;">SHUTTLE BRAVO</p>
+            </div>
+            <i class="fas fa-times close-btn" id="close-sidebar"></i>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="admin.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="manage_schedules.html" class="active"><i class="far fa-calendar-alt"></i> Manage Schedules</a></li>
+            <li><a href="manage_shuttles.html"><i class="fas fa-bus"></i> Manage Shuttles</a></li>
+            <li><a href="manage_drivers.html"><i class="fas fa-users"></i> Manage Drivers</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="login.html" class="logout-link btn-logout" style="color: #E02B2B; font-weight: 600; cursor: pointer; text-decoration: none;">
+                <i class="fas fa-sign-out-alt" style="color: #E02B2B;"></i> Log Out
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div class="schedule-header-top" style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+            <i class="fas fa-bars menu-icon" id="menu-btn" style="cursor: pointer; font-size: 24px;"></i>
+            <h2 style="margin: 0; font-size: 24px;">Manage Schedules</h2>
+        </div>
+
+        <div class="schedule-card">
+            <div class="page-header">
+                <h3 style="margin: 0;">Create New Schedule</h3>
+                <button class="btn-save" id="btn-save-schedule" style="padding: 10px 25px;">
+                    <i class="fas fa-save" style="margin-right: 8px;"></i> Save Schedule
+                </button>
+            </div>
+
+            <form class="schedule-form" onsubmit="event.preventDefault();">
+                <div class="form-grid">
+                    <div class="form-group-schedule full-width">
+                        <label>Target Route</label>
+                        <select class="gray-input-box custom-select" id="route-select">
+                            <option>Loading routes...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-schedule">
+                        <label>Shuttle Bus</label>
+                        <select class="gray-input-box custom-select" id="shuttle-select">
+                            <option>Loading shuttles...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-schedule">
+                        <label>Assign Driver</label>
+                        <select class="gray-input-box custom-select" id="driver-select">
+                            <option>Loading drivers...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-schedule">
+                        <label>Date</label>
+                        <input type="date" class="gray-input-box" id="date-input">
+                    </div>
+
+                    <div class="form-group-schedule">
+                        <label>Departure Time</label>
+                        <input type="time" class="gray-input-box" id="time-input">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/admin_schedule.js"></script>
+</body>
+</html>

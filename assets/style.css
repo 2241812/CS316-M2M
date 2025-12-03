@@ -1200,3 +1200,276 @@ input[type="time"].gray-input-box {
 .warning:hover {
     background-color: #e6b800;
 }
+
+/* --- SLIDING SIDEBAR STYLES --- */
+
+/* The Dark Overlay (Background dimmer) */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none; /* Hidden by default */
+}
+.sidebar-overlay.active {
+    display: block; /* Show when active */
+}
+
+/* The Sidebar Drawer */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Hides it off-screen to the left */
+    width: 260px;
+    height: 100%;
+    background: #ffffff;
+    z-index: 999;
+    transition: left 0.3s ease; /* Smooth slide animation */
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* The Class that makes it pop out */
+.sidebar.active {
+    left: 0; 
+}
+
+/* Sidebar Header (Logo & Close Button) */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.close-btn {
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Menu Links */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1; 
+}
+
+.sidebar-menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar-menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: color 0.2s;
+}
+
+.sidebar-menu a:hover {
+    color: #E02B2B;
+}
+
+.sidebar-menu i {
+    width: 25px;
+    color: #666;
+}
+
+/* Logout Button at Bottom */
+.sidebar-footer {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+
+/* --- ACTIVE SIDEBAR STATE --- */
+
+/* Targets the link with the 'active' class */
+.sidebar-menu li a.active {
+    color: #E02B2B !important;       /* M2M Red Text */
+    background-color: #fcebeb;       /* Very Light Red Background */
+    font-weight: 700 !important;     /* Bold Text */
+    border-radius: 5px;              /* Rounded corners */
+    border-left: 4px solid #E02B2B;  /* Red line on the left side */
+}
+
+/* Ensures the Icon inside the active link is also Red */
+.sidebar-menu li a.active i {
+    color: #E02B2B !important;
+}
+
+/* Hover effect for non-active links (optional) */
+.sidebar-menu li a:hover:not(.active) {
+    background-color: #f5f5f5;
+    color: #E02B2B;
+}
+
+
+/* Dashboard Widgets Grid */
+.dashboard-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* Widget Card Styling */
+.widget-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.widget-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Feed List Styles */
+.feed-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.feed-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+    display: flex;
+    gap: 15px;
+}
+
+.feed-icon {
+    width: 35px;
+    height: 35px;
+    background: #ffebeb;
+    color: #E02B2B;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.feed-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.feed-content span {
+    font-size: 11px;
+    color: #999;
+}
+
+/* Announcement Input Styles */
+.announcement-area {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    resize: none;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.btn-announce {
+    background: #E02B2B;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-announce:hover {
+    background: #c92525;
+}
+
+.btn-announce:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* --- Modal/Popup Styles --- */
+.custom-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Dimmed background */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+.close-modal:hover { color: #E02B2B; }
+
+/* Adjust Activity Feed to look good inline */
+.inline-feed-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-top: 10px;
+}
