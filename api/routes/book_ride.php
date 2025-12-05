@@ -51,11 +51,11 @@ try {
     $payment_status = ($method === 'cash') ? 'unpaid' : 'paid';
     $booking_status = ($method === 'cash') ? 'pending' : 'accepted';
 
-    $sql = "INSERT INTO bookings (user_id, driver_schedule_id, pickup_location, dropoff_location, status, payment_status)
+ $sql = "INSERT INTO bookings (user_id, driver_schedule_id, pickup_location, dropoff_location, status, payment_status)
             SELECT '$user_id', '$schedule_id', r.start_location, r.end_location, '$booking_status', '$payment_status'
             FROM driver_schedule ds
             JOIN shuttles s ON ds.shuttle_id = s.id
-            JOIN routes r ON s.route_id = r.id
+            JOIN routes r ON ds.route_id = r.id  /* <--- CHANGED THIS LINE */
             WHERE ds.id = '$schedule_id'";
 
     if ($conn->query($sql) === TRUE) {
