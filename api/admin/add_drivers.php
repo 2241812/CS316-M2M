@@ -29,5 +29,7 @@ if ($conn->query($sql) === TRUE) {
 } else {
     echo json_encode(["success" => false, "message" => "Error: " . $conn->error]);
 }
+$log_sql = "INSERT INTO activity_logs (description, icon) VALUES ('Driver created', 'fa-user')";
+$conn->query($log_sql);
 $conn->close();
 ?>

@@ -10,6 +10,52 @@
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    
+    <style>
+        /* Extra styles for the dynamic shuttle list */
+        .shuttle-select-container {
+            margin-top: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        .shuttle-option {
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .shuttle-option:hover, .shuttle-option.selected {
+            background-color: #fce8e8;
+        }
+        .shuttle-info h4 { font-size: 14px; margin: 0; color: #333; }
+        .shuttle-info p { font-size: 11px; margin: 0; color: #666; }
+        .seats-badge {
+            background: #28a745; color: white;
+            padding: 2px 6px; border-radius: 4px; font-size: 10px;
+        }
+        .seats-badge.full { background: #dc3545; }
+        
+        .payment-option {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        .payment-option:hover, .payment-option.selected {
+            border-color: #E02B2B;
+            background: #fff5f5;
+        }
+        .payment-option i { font-size: 24px; margin-right: 15px; color: #555; }
+        .payment-option.selected i { color: #E02B2B; }
+    </style>
 </head>
 <body>
 
@@ -28,28 +74,26 @@
             <div id="map" style="width: 100%; height: 100%; min-height: 350px;"></div>
         </div>
 
-        <div class="booking-card">
-            <div class="route-selector">
-                <div class="route-visuals">
-                    <div class="dot red-dot"></div>
-                    <div class="line"></div>
-                    <div class="dot arrow-dot"></div>
-                </div>
-                
-                <div class="route-inputs">
-                    <div class="route-item border-bottom">
-                        <span id="route-start">Loading Route...</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="route-item">
-                        <span id="route-end">Loading Route...</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
+        <!-- BOOKING INTERFACE -->
+        <div class="booking-card" id="booking-panel">
+            
+            <!-- Step 1: Select Route -->
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label style="font-size: 12px; font-weight: 600;">Select Route</label>
+                <select id="route-selector" class="form-control" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ddd;">
+                    <option value="">-- Choose Route --</option>
+                </select>
             </div>
 
-            <div class="passenger-counter">
-                <span class="label">Passenger</span>
+            <!-- Step 2: Select Shuttle -->
+            <label style="font-size: 12px; font-weight: 600;">Available Shuttles</label>
+            <div class="shuttle-select-container" id="shuttle-list">
+                <div style="padding:10px; text-align:center; color:#999; font-size:12px;">Select a route first</div>
+            </div>
+
+            <!-- Step 3: Passenger Count -->
+            <div class="passenger-counter" style="margin-top: 15px;">
+                <span class="label">Passengers</span>
                 <div class="counter-controls">
                     <i class="fa-solid fa-circle-minus counter-icon" id="btn-decrease"></i>
                     <span class="count-number" id="passenger-count">1</span>
@@ -57,9 +101,10 @@
                 </div>
             </div>
 
-            <button class="btn-login confirm-btn" id="btn-confirm">Confirm</button>
+            <button class="btn-login confirm-btn" id="btn-book-now" disabled style="opacity: 0.6;">Book Ride</button>
         </div>
 
+        <!-- BOTTOM NAV -->
         <div class="bottom-nav">
             <a href="profile.html" class="nav-item">
                 <i class="fa-solid fa-circle-user"></i>
@@ -73,7 +118,40 @@
         </div>
     </div>
 
+    <!-- PAYMENT MODAL -->
+    <div id="payment-modal" class="custom-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-payment">&times;</span>
+            <div class="widget-header" style="margin-top: 0;">
+                <h3>Select Payment</h3>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <div class="payment-option" onclick="selectPayment('cash', this)">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <div>
+                        <strong>Cash Payment</strong>
+                        <div style="font-size: 11px; color:#666;">Pay driver upon boarding</div>
+                    </div>
+                </div>
+                <div class="payment-option" onclick="selectPayment('online', this)">
+                    <i class="fas fa-credit-card"></i>
+                    <div>
+                        <strong>Online / GCash</strong>
+                        <div style="font-size: 11px; color:#666;">Instant confirmation</div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="selected-payment-method" value="">
+            <button class="btn-login" id="btn-confirm-payment" disabled>Confirm & Pay</button>
+        </div>
+    </div>
+    
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-    <script src="assets/js/main.js"></script> <script src="assets/js/map.js"></script>  </body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/map.js"></script>
+</body>
 </html>

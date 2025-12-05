@@ -1,4 +1,5 @@
 let currentScheduleId = null;
+let passengerRefreshInterval = null; // Store interval ID for passenger list
 let currentUser = JSON.parse(localStorage.getItem('m2m_user'));
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,9 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDriverSchedule();
     loadNotifications();
 
+    // 1. REAL-TIME UPDATE: Refresh Dashboard every 5 seconds
+    setInterval(loadDriverSchedule, 5000); 
+    
+    // Refresh notifications every 30 seconds
     setInterval(loadNotifications, 30000);
 });
 
+// ... (setupSidebar function remains the same, keep it here) ...
 function setupSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -21,41 +27,20 @@ function setupSidebar() {
     const closeBtn = document.getElementById('close-sidebar');
     const logoutBtn = document.getElementById('btn-logout');
 
-    if (openBtn) {
-        openBtn.addEventListener('click', () => {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
-        });
-    }
-
-    function closeSidebarMenu() {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-    }
+    if (openBtn) openBtn.addEventListener('click', () => { sidebar.classList.add('active'); overlay.classList.add('active'); });
+    
+    function closeSidebarMenu() { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
 
     if (closeBtn) closeBtn.addEventListener('click', closeSidebarMenu);
     if (overlay) overlay.addEventListener('click', closeSidebarMenu);
 
-if (logoutBtn) {
-    // Using .onclick overwrites any previous listeners, preventing double popups
-    logoutBtn.onclick = function(e) {
-        e.preventDefault();
-        
+    if (logoutBtn) logoutBtn.addEventListener('click', () => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You will be logged out of the system.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, Logout'
+            title: 'Logout?', text: "End shift?", icon: 'warning', showCancelButton: true, confirmButtonColor: '#E02B2B', confirmButtonText: 'Yes'
         }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '../logout.php';
-            }
+            if (result.isConfirmed) { localStorage.removeItem('m2m_user'); window.location.href = 'index.html'; }
         });
-    };
-}
+    });
 }
 
 async function loadDriverSchedule() {
@@ -64,6 +49,7 @@ async function loadDriverSchedule() {
         const result = await response.json();
 
         if (result.success) {
+            // Only re-render if we have data, to prevent blank flashing
             renderCurrentTrip(result.data.current_trip);
             renderUpcomingTrips(result.data.upcoming_trips);
         }
@@ -71,80 +57,58 @@ async function loadDriverSchedule() {
         console.error('Error loading schedule:', error);
     }
 }
+
 function renderCurrentTrip(trip) {
     const container = document.getElementById('current-trip-container');
     
     if (!trip) {
-        container.innerHTML = `
-            <div class="trip-card gray-card">
-                <h3 class="card-title">No Active Trips</h3>
-                <p class="sub-text">Next trip will appear 15 minutes before departure.</p>
-            </div>`;
+        container.innerHTML = `<div class="trip-card gray-card"><h3 class="card-title">No Active Trips</h3><p class="sub-text">Next trip will appear 15 minutes before departure.</p></div>`;
         return;
     }
 
     currentScheduleId = trip.id;
     const capacityPercentage = Math.min(100, (trip.passenger_count / trip.capacity) * 100);
 
-    let pillHtml = '';
-    let statusText = '';
-
-    if(trip.status === 'in_progress') {
-        pillHtml = '<button class="pill active">On Route</button>';
-        statusText = 'LIVE';
-    } else if(trip.status === 'delayed') {
-        pillHtml = '<button class="pill active status-delayed">Delayed</button>';
-        statusText = 'DELAYED';
-    } else if (trip.is_boarding) {
-        pillHtml = '<button class="pill" style="background: #e67e22; color: #fff;">Boarding Now</button>';
-        statusText = 'BOARDING';
-    } else {
-        pillHtml = '<button class="pill">Scheduled</button>';
-    }
-
+    let statusHtml = trip.status === 'delayed' 
+        ? '<span class="live-badge" style="background:orange;">DELAYED</span>' 
+        : '<span class="live-badge">LIVE</span>';
+        
     const isStarted = trip.status === 'in_progress' || trip.status === 'delayed';
     const btnText = isStarted ? "End Trip" : "Start Trip";
     const btnColor = isStarted ? "#111" : "#cc0000";
     const btnAction = isStarted ? "complete" : "start";
 
+    // Note: We use the existing HTML structure but ensure values are injected
     container.innerHTML = `
         <div class="trip-card gray-card">
             <div class="card-header-row">
                 <h3 class="card-title">Current Trip</h3>
-                <span class="live-badge" style="${trip.status === 'delayed' ? 'background:orange;' : ''}">${statusText}</span>
+                ${statusHtml}
             </div>
             
-            <p class="sub-text"><strong>Bus:</strong> ${trip.plate_number}</p>
-            <p class="sub-text"><strong>Route:</strong> ${trip.route_name || 'Route Not Assigned'}</p>
+            <p class="sub-text" style="font-size:14px; margin-bottom:5px;"><strong>Bus:</strong> ${trip.plate_number}</p>
+            <p class="sub-text" style="font-size:14px;"><strong>Route:</strong> ${trip.route_name || 'Route Not Assigned'}</p>
            
-            <div class="booking-status">
-                <span class="label">Passenger Count</span>
-                <span class="count">${trip.passenger_count}/${trip.capacity}</span>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: ${capacityPercentage}%;"></div>
+            <div class="booking-status" style="margin: 15px 0;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                     <span class="label">Passenger Count</span>
+                     <span class="count" style="font-size:16px; font-weight:bold; color:#E02B2B;">${trip.passenger_count} / ${trip.capacity}</span>
                 </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: ${capacityPercentage}%;"></div></div>
             </div>
 
             <div class="time-info">
-                <div class="time-box">
-                    <span>Departure</span>
-                    <strong>${formatTime(trip.start_time)}</strong>
-                </div>
+                <div class="time-box"><span>Departure</span><strong>${formatTime(trip.start_time)}</strong></div>
                 <div class="time-divider"></div>
-                <div class="time-box">
-                    <span>Arrival</span>
-                    <strong>${formatTime(trip.end_time)}</strong>
-                </div>
+                <div class="time-box"><span>Arrival</span><strong>${formatTime(trip.end_time)}</strong></div>
             </div>
 
-            <div class="status-pills">
-                ${pillHtml}
-            </div>
+            <button class="btn-action" style="background-color: #444; margin-bottom: 10px;" onclick="openPassengerModal()">
+                <i class="fas fa-users"></i> View Passengers
+            </button>
 
             <div class="action-buttons">
-                <button class="btn-action red" id="btn-toggle" 
-                    style="background-color: ${btnColor}" 
-                    onclick="updateTripStatus('${btnAction}')">${btnText}</button>
+                <button class="btn-action red" style="background-color: ${btnColor}" onclick="updateTripStatus('${btnAction}')">${btnText}</button>
                 <button class="btn-action red" onclick="reportDelay()">Report Delay</button>
             </div>
         </div>
@@ -153,35 +117,144 @@ function renderCurrentTrip(trip) {
 
 function renderUpcomingTrips(trips) {
     const container = document.getElementById('upcoming-trips-list');
-    container.innerHTML = '';
-
+    if(!container) return; 
+    
+    // Simple check to avoid clearing if user is scrolling or interacting
+    // For now, we rebuild it.
+    let html = '';
     if (trips.length === 0) {
-        container.innerHTML = '<p class="sub-text">No upcoming trips.</p>';
+        html = '<p class="sub-text">No upcoming trips.</p>';
+    } else {
+        trips.forEach(trip => {
+            const dateObj = new Date(trip.shift_date);
+            const month = dateObj.toLocaleString('default', { month: 'short' }).toUpperCase();
+            const day = dateObj.getDate();
+            html += `
+                <div class="upcoming-item">
+                    <div class="date-box"><span class="month">${month}</span><span class="day">${day}</span></div>
+                    <div class="trip-text">
+                        <strong>${formatTime(trip.start_time)}</strong>
+                        <span>${trip.route_name || 'Assigned Route'}</span>
+                    </div>
+                </div>
+                <div class="divider-black"></div>
+            `;
+        });
+    }
+    container.innerHTML = html;
+}
+
+// --- PASSENGER LOGIC ---
+
+function openPassengerModal() {
+    if(!currentScheduleId) return;
+    openModal('passenger-modal');
+    loadPassengers(); // Load immediately
+    
+    // 2. REAL-TIME LIST: Refresh list every 3 seconds while modal is open
+    if(passengerRefreshInterval) clearInterval(passengerRefreshInterval);
+    passengerRefreshInterval = setInterval(loadPassengers, 3000);
+}
+
+function closePassengerModal() {
+    closeModal('passenger-modal');
+    // Stop refreshing when closed to save resources
+    if(passengerRefreshInterval) clearInterval(passengerRefreshInterval);
+}
+
+async function loadPassengers() {
+    const container = document.getElementById('passenger-list');
+    if(!container) return;
+
+    try {
+        const response = await fetch(`api/driver/get_trip_passengers.php?schedule_id=${currentScheduleId}`);
+        const result = await response.json();
+
+        if(result.success) {
+            const passengers = result.data;
+            if(passengers.length === 0) {
+                container.innerHTML = '<p style="text-align:center; padding:20px; color:#666;">No passengers booked yet.</p>';
+                return;
+            }
+
+            container.innerHTML = passengers.map(p => {
+                const isPaid = p.payment_status === 'paid';
+                const isCash = p.payment_method === 'cash';
+                const amount = parseFloat(p.amount).toFixed(2);
+
+                let statusBadge = '';
+                let actionBtn = '';
+
+                if (isPaid) {
+                    statusBadge = `<span class="status-badge-small badge-paid"><i class="fas fa-check"></i> PAID (${p.payment_method})</span>`;
+                } else {
+                    statusBadge = `<span class="status-badge-small badge-unpaid">PENDING (${p.payment_method})</span>`;
+                    
+                    // Only show Verify Button if method is CASH and status is UNPAID
+                    if(isCash) {
+                        actionBtn = `<button class="btn-verify" onclick="verifyPassenger(${p.booking_id})">Confirm ₱${amount}</button>`;
+                    }
+                }
+
+                return `
+                    <div class="passenger-item" style="border-bottom:1px solid #eee; padding: 12px 0;">
+                        <div class="passenger-info">
+                            <h4 style="margin:0; font-size:15px;">${p.passenger_name}</h4>
+                            <p style="margin:2px 0; font-size:12px; color:#666;">
+                                <i class="fas fa-map-marker-alt"></i> ${p.pickup_location} <i class="fas fa-arrow-right"></i> ${p.dropoff_location}
+                            </p>
+                            <div style="font-size:12px; margin-top:4px;">
+                                <strong>Transaction:</strong> ₱${amount} via ${p.payment_method.toUpperCase()}
+                            </div>
+                        </div>
+                        <div style="text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
+                            ${statusBadge}
+                            ${actionBtn}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function verifyPassenger(bookingId) {
+    // Temporarily stop refresh so the button doesn't disappear while clicking
+    if(passengerRefreshInterval) clearInterval(passengerRefreshInterval);
+
+    if(!confirm("Confirm that you received cash payment?")) {
+        // Restart refresh if cancelled
+        passengerRefreshInterval = setInterval(loadPassengers, 3000);
         return;
     }
 
-    trips.forEach(trip => {
-        const dateObj = new Date(trip.shift_date);
-        const month = dateObj.toLocaleString('default', { month: 'short' }).toUpperCase();
-        const day = dateObj.getDate();
+    try {
+        const response = await fetch('api/driver/verify_payment.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ booking_id: bookingId })
+        });
+        const result = await response.json();
 
-        container.innerHTML += `
-            <div class="upcoming-item">
-                <div class="date-box">
-                    <span class="month">${month}</span>
-                    <span class="day">${day}</span>
-                </div>
-                <div class="trip-text">
-                    <strong>${formatTime(trip.start_time)}</strong>
-                    <span>${trip.route_name || 'Assigned Route'}</span>
-                    <small>Capacity: ${trip.capacity}</small>
-                </div>
-            </div>
-            <div class="divider-black"></div>
-        `;
-    });
+        if(result.success) {
+            Swal.fire({ icon: 'success', title: 'Payment Verified', timer: 1500, showConfirmButton: false });
+            loadPassengers(); // Refresh immediately
+            loadDriverSchedule(); // Update main count
+        } else {
+            Swal.fire('Error', result.message, 'error');
+        }
+    } catch (e) {
+        console.error(e);
+    } finally {
+        // Restart refresh
+        passengerRefreshInterval = setInterval(loadPassengers, 3000);
+    }
 }
 
+// ... (Rest of your functions: updateTripStatus, reportDelay, notifications, formatTime) ...
+// Make sure to add the rest of the existing functions here
 async function updateTripStatus(action, extraData = {}) {
     if(!currentScheduleId) return;
 
@@ -201,10 +274,10 @@ async function updateTripStatus(action, extraData = {}) {
         const data = await res.json();
         
         if(data.success) {
-            alert(action === 'start' ? "Trip Started!" : "Status Updated");
+            Swal.fire('Success', action === 'start' ? "Trip Started!" : "Status Updated", 'success');
             loadDriverSchedule(); 
         } else {
-            alert("Error: " + data.message);
+            Swal.fire('Error', data.message, 'error');
         }
     } catch (e) {
         console.error(e);
@@ -218,13 +291,8 @@ function reportDelay() {
     }
 }
 
-function reportAccident() {
-    if(confirm("Are you sure you want to report an accident? This will alert the admin.")) {
-        sendAlert("ACCIDENT REPORTED", "critical");
-    }
-}
-
 async function loadNotifications() {
+    // ... use your existing notification code ...
     const list = document.getElementById('notification-list');
     if (!list) return;
 
@@ -259,37 +327,6 @@ async function loadNotifications() {
     }
 }
 
-async function sendAlert(customMsg = null, type = 'alert') {
-    let message = customMsg;
-    
-    if (!message) {
-        message = prompt("Enter alert message to send to Admin/System:");
-    }
-    
-    if (message) {
-        try {
-            const response = await fetch('api/driver/send_alert.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: message,
-                    type: type,
-                    driver_name: currentUser.name
-                })
-            });
-            const res = await response.json();
-            if (res.success) {
-                if(!customMsg) alert("Alert Sent Successfully.");
-                loadNotifications();
-            } else {
-                alert("Failed to send: " + res.message);
-            }
-        } catch (error) {
-            console.error("Error sending alert:", error);
-        }
-    }
-}
-
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if(modal) modal.style.display = 'flex';
@@ -302,6 +339,7 @@ function closeModal(modalId) {
 
 window.onclick = function(event) {
     if (event.target.classList.contains('custom-modal')) {
+        closePassengerModal(); // Ensure we stop the interval if clicked outside
         event.target.style.display = 'none';
     }
 }

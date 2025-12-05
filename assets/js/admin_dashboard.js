@@ -123,20 +123,34 @@ async function loadNotifications() {
         console.error("Error loading notifications", error);
     }
 }
-
-// --- ACTIVITY FEED (Keep simulated or connect to DB if you have table) ---
-function loadActivityFeed() {
-    // Keeping this simple for now, can be updated like notifications later
+async function loadActivityFeed() {
     const list = document.getElementById('activity-feed-list');
     if (!list) return;
-    const activities = [
-        { text: "Driver Mike started Shuttle A", time: "2 mins ago", icon: "fa-bus" },
-        { text: "New booking from ID #4022", time: "15 mins ago", icon: "fa-ticket-alt" }
-    ];
-    list.innerHTML = activities.map(item => `
-        <li class="feed-item">
-            <div class="feed-icon"><i class="fas ${item.icon}"></i></div>
-            <div class="feed-content"><p>${item.text}</p><span>${item.time}</span></div>
-        </li>
-    `).join('');
+
+    try {
+        const response = await fetch('api/admin/get_activity_feed.php');
+        const json = await response.json();
+
+        if (json.success) {
+            const activities = json.data;
+
+            if (activities.length === 0) {
+                list.innerHTML = '<li class="feed-item" style="justify-content:center; color:#999;">No recent activity.</li>';
+                return;
+            }
+
+            list.innerHTML = activities.map(item => `
+                <li class="feed-item">
+                    <div class="feed-icon"><i class="fas ${item.icon}"></i></div>
+                    <div class="feed-content">
+                        <p>${item.text}</p>
+                        <span>${item.time}</span>
+                    </div>
+                </li>
+            `).join('');
+        }
+    } catch (error) {
+        console.error("Error loading activity feed:", error);
+    }
+
 }

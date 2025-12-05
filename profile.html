@@ -23,17 +23,19 @@
 
         <div class="user-profile-header">
             <i class="fas fa-circle-user user-avatar"></i>
-            <h3>John Dela Cruz</h3>
-            <p>johndelacruz@slu.edu.ph</p>
+            <h3 id="display-name">Loading...</h3>
+            <p id="display-email">Loading...</p>
         </div>
 
         <div class="settings-card">
             <h4>Personal Info</h4>
-            <div class="settings-item">
+            <!-- Added ID -->
+            <div class="settings-item" id="btn-edit-profile">
                 <span>Edit Profile</span>
                 <i class="fas fa-pencil settings-icon"></i>
             </div>
-            <div class="settings-item">
+            <!-- Added ID -->
+            <div class="settings-item" id="btn-change-password">
                 <span>Change Password</span>
                 <i class="fas fa-lock settings-icon"></i>
             </div>
@@ -48,28 +50,16 @@
             <div class="settings-item">
                 <span>Notification</span>
                 <label class="switch">
-                    <input type="checkbox" checked>
+                    <input type="checkbox" checked id="toggle-notif">
                     <span class="slider round"></span>
                 </label>
             </div>
             <div class="settings-item no-border">
                 <span>Dark Mode</span>
                 <label class="switch">
-                    <input type="checkbox" checked>
+                    <input type="checkbox" id="toggle-darkmode">
                     <span class="slider round"></span>
                 </label>
-            </div>
-        </div>
-
-        <div class="settings-card">
-            <h4>Support</h4>
-            <div class="settings-item">
-                <span>Help Center</span>
-                <i class="fas fa-circle-question settings-icon"></i>
-            </div>
-            <div class="settings-item no-border">
-                <span>Contact Us</span>
-                <i class="far fa-comment-alt settings-icon"></i>
             </div>
         </div>
 
@@ -89,7 +79,51 @@
         
     </div>
 
+    <!-- EDIT PROFILE MODAL -->
+    <div id="edit-profile-modal" class="custom-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-edit-profile">&times;</span>
+            <h3>Edit Profile</h3>
+            <form id="editProfileForm" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="edit-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="edit-email" required>
+                </div>
+                <button type="submit" class="btn-login" style="margin-top: 15px;">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHANGE PASSWORD MODAL -->
+    <div id="password-modal" class="custom-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-password">&times;</span>
+            <h3>Change Password</h3>
+            <form id="changePasswordForm" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" id="current-pass" required>
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="new-pass" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="confirm-new-pass" required>
+                </div>
+                <button type="submit" class="btn-login" style="margin-top: 15px;">Update Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/profile.js"></script>
 
 </body>
 </html>

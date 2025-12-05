@@ -7,6 +7,40 @@
     <link rel="stylesheet" href="assets/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles for the Passenger List */
+        .passenger-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .passenger-info h4 { margin: 0; font-size: 14px; color: #333; }
+        .passenger-info p { margin: 0; font-size: 11px; color: #666; }
+        
+        .status-badge-small {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-paid { background: #d4edda; color: #155724; }
+        .badge-unpaid { background: #f8d7da; color: #721c24; }
+        
+        .btn-verify {
+            background: #E02B2B;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .btn-verify:hover { background: #c00; }
+    </style>
 </head>
 <body>
 
@@ -67,6 +101,7 @@
 
     </div>
 
+    <!-- NOTIFICATION MODAL -->
     <div id="notification-modal" class="custom-modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('notification-modal')">&times;</span>
@@ -78,6 +113,18 @@
             </ul>
         </div>
     </div>
+
+    <!-- PASSENGER MANIFEST MODAL (NEW) -->
+   <div id="passenger-modal" class="custom-modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closePassengerModal()">&times;</span>
+        <div class="widget-header" style="margin-top: 0;">
+            <h3>Passenger List</h3>
+        </div>
+        <div id="passenger-list" style="margin-top: 15px; max-height: 400px; overflow-y: auto;">
+            </div>
+    </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/main.js"></script>

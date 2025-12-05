@@ -21,6 +21,7 @@ if ($conn->query($sql) === TRUE) {
 } else {
     echo json_encode(["success" => false, "message" => "Error: " . $conn->error]);
 }
-
+$log_sql = "INSERT INTO activity_logs (description, icon) VALUES ('Shuttle Deleted, 'fa-bus')";
+$conn->query($log_sql);
 $conn->close();
 ?>
