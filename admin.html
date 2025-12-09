@@ -21,12 +21,17 @@
         </div>
 
         <ul class="sidebar-menu">
-            <li><a href="admin.html" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-            <li><a href="manage_schedule.html"><i class="far fa-calendar-alt"></i> Manage Schedules</a></li>
-            <li><a href="manage_shuttles.html"><i class="fas fa-bus"></i> Manage Shuttles</a></li>
-            <li><a href="manage_drivers.html"><i class="fas fa-users"></i> Manage Drivers</a></li>
-        </ul>
-
+    <li><a href="admin.html" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+    <li><a href="manage_schedule.html"><i class="far fa-calendar-alt"></i> Manage Schedules</a></li>
+    <li>
+        <a href="manage_cancellation_requests.html" id="cancellation-request-link">
+            <i class="fas fa-ban"></i> Cancellation Requests 
+            <span class="badge" id="cancellation-badge" style="background: #E02B2B; color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-left: 5px; display: none;">0</span>
+        </a>
+    </li>
+    <li><a href="manage_shuttles.html"><i class="fas fa-bus"></i> Manage Shuttles</a></li>
+    <li><a href="manage_drivers.html"><i class="fas fa-users"></i> Manage Drivers</a></li>
+</ul>
         <div class="sidebar-footer">
             <a class="logout-link btn-logout" style="color: #E02B2B; font-weight: 600; cursor: pointer;">
                 <i class="fas fa-sign-out-alt" style="color: #E02B2B;"></i> Log Out

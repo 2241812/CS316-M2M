@@ -46,14 +46,46 @@
             <a href="history.html" class="nav-item active">
                 <i class="fa-solid fa-clock"></i> 
             </a>
-             <a href="notifications.html" class="nav-item">
-                <i class="fa-solid fa-circle-user"></i>
+            <a href="notifications.html" class="nav-item" style="position: relative;">
+                <i class="fa-solid fa-bell"></i> 
+                <span class="notification-dot" style="position: absolute; top: 5px; right: 5px; height: 8px; width: 8px; background-color: #E02B2B; border-radius: 50%; display: none;"></span>
             </a>
         </div>
     </div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/history.js"></script>
+<div class="modal-overlay" id="history-payment-modal" style="display:none;">
+    <div class="modal-content">
+        <div class="close-btn" id="close-history-payment">
+            <i class="fas fa-times"></i>
+        </div>
 
+        <div class="widget-header" style="margin-top: 0;">
+            <h3>Complete Payment</h3>
+            <p style="font-size: 12px; color:#666; margin-top: 5px;">Booking ID: <span id="payment-booking-id" style="font-weight: 700;"></span></p>
+            <p style="font-size: 14px; margin-top: 10px;">Amount Due: <span id="payment-amount-due" style="font-weight: 700; color: #E02B2B;"></span></p>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <p style="font-size: 12px; color:#666; margin-bottom: 10px;">Select Online Payment Method:</p>
+            
+            <div class="payment-option" onclick="selectHistoryPayment('online', this)">
+                <i class="fas fa-credit-card"></i>
+                <div>
+                    <strong>Online / GCash / Card</strong>
+                    <div style="font-size: 11px; color:#666;">Instant confirmation.</div>
+                </div>
+            </div>
+            
+            </div>
+
+        <input type="hidden" id="selected-history-payment-method" value="">
+        <input type="hidden" id="hidden-booking-id" value="">
+        <button class="btn-login" id="btn-confirm-history-payment" disabled>Pay Now</button> 
+        
+    
+    </div>
+</div>
+<script src="assets/js/main.js"></script>
+    <script src="assets/js/history.js"></script>
 </body>
 </html>

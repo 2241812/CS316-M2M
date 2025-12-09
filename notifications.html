@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2M Shuttle Bravo - Notifications</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    .notification-list-container {
+        padding: 15px;
+        position: relative;
+    }
+    
+    .container {
+        padding-bottom: 70px; 
+    }
+    
+
+    .notification-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+    
+    .notification-item:last-child {
+        border-bottom: none;
+    }
+
+    .notification-icon-wrapper {
+        flex-shrink: 0;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 16px;
+    }
+    
+    .notification-item.unread {
+        background-color: #f8faff; 
+        border-left: 5px solid #007bff;
+        padding-left: 10px;
+    }
+
+    .notification-content {
+        flex-grow: 1;
+    }
+    
+    .notification-content p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .notification-content span {
+        display: block;
+        font-size: 11px;
+        color: #999;
+        margin-top: 4px;
+    }
+</style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="logo-area small-logo" style="padding-top: 15px; padding-bottom: 5px;">
+            <div class="logo-placeholder">
+                <i class="fas fa-bell logo-icon" style="font-size: 24px;"></i> 
+                <div class="logo-text">
+                    <h1>NOTIFICATIONS</h1>
+                    <p style="font-size: 10px;">Your Updates and Reminders</p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 0;">
+
+        <div class="notification-list-container">
+            
+            <ul id="notification-list" style="list-style: none; padding: 0; margin: 0;">
+                <li class="notification-item">
+                    <p style="text-align: center; width: 100%; color: #999;"></p>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="bottom-nav">
+            <a href="profile.html" class="nav-item">
+                <i class="fa-solid fa-circle-user"></i>
+            </a>
+            <a href="map.html" class="nav-item">
+                <i class="fa-solid fa-compass"></i>
+            </a>
+            <a href="history.html" class="nav-item">
+                <i class="fa-regular fa-clock" style="font-weight: 600;"></i> 
+            </a>
+            <a href="notifications.html" class="nav-item active" style="position: relative;">
+                <i class="fa-solid fa-bell"></i> 
+                <span class="notification-dot" style="position: absolute; top: 5px; right: 5px; height: 8px; width: 8px; background-color: #E02B2B; border-radius: 50%; display: none;"></span>
+            </a>
+        </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/notifications.js"></script> 
+</body>
+</html>

@@ -8,6 +8,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<style>
+        .passenger-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .passenger-info h4 { margin: 0; font-size: 14px; color: #333; }
+        .passenger-info p { margin: 0; font-size: 11px; color: #666; }
+        
+        .status-badge-small {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-paid { background: #d4edda; color: #155724; }
+        .badge-unpaid { background: #f8d7da; color: #721c24; }
+        
+        .btn-verify {
+            background: #E02B2B;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .btn-verify:hover { background: #c00; }
+.bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px; 
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #6c757d; 
+            font-size: 12px; 
+            font-weight: 500;
+            transition: color 0.3s;
+            width: 50%;
+        }
+    
+        .nav-item.profile-item { 
+            order: 1; 
+        }
+        .nav-item.schedule-item { 
+            order: 2; 
+        }
+
+        .nav-item i {
+            font-size: 26px; 
+            margin-bottom: 3px;
+        }
+        
+        .nav-item.active,
+        .nav-item:hover {
+            color: #E02B2B; 
+        }
+
+        .driver-container {
+            padding-bottom: 80px;
+        }
+    </style>
 <body>
 
     <div class="container profile-container">
@@ -33,12 +112,10 @@
         <span>View Vehicle Info</span>
         <i class="fas fa-shuttle-van settings-icon"></i>
     </div>
-            <!-- Added ID -->
             <div class="settings-item" id="btn-edit-profile">
                 <span>Edit Profile</span>
                 <i class="fas fa-pencil settings-icon"></i>
             </div>
-            <!-- Added ID -->
             <div class="settings-item" id="btn-change-password">
                 <span>Change Password</span>
                 <i class="fas fa-lock settings-icon"></i>
@@ -50,21 +127,18 @@
         </div>
 
 
-        <div class="bottom-nav">
-            <a href="profile.html" class="nav-item active">
-                <i class="fa-solid fa-circle-user"></i>
-            </a>
-            <a href="map.html" class="nav-item">
-                <i class="fa-solid fa-compass"></i>
-            </a>
-            <a href="history.html" class="nav-item">
-                <i class="fa-solid fa-clock"></i> 
-            </a>
-             <a href="notifications.html" class="nav-item" style="position: relative;">
-                <i class="fa-solid fa-bell"></i> 
-                <span class="notification-dot" style="position: absolute; top: 5px; right: 5px; height: 8px; width: 8px; background-color: #E02B2B; border-radius: 50%; display: none;"></span>
-            </a>
-        </div>
+       <div class="bottom-navbar">
+        
+        <a href="driver_profile.html" class="nav-item profile-item active">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+        </a>
+
+        <a href="driver.html" class="nav-item schedule-item">
+            <i class="fas fa-route"></i>
+            <span>Schedule</span>
+        </a>
+    </div>
         
     </div>
 
@@ -109,6 +183,21 @@
                 </div>
                 <button type="submit" class="btn-login" style="margin-top: 15px;">Update Password</button>
             </form>
+        </div>
+    </div>
+
+    <div id="vehicle-modal" class="custom-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-vehicle-modal">&times;</span>
+            <h3>Assigned Vehicle Details</h3>
+            <div id="vehicle-details-content" style="margin-top: 20px;">
+                <p><strong>Plate Number:</strong> <span id="modal-vehicle-plate">N/A</span></p>
+                <p><strong>Model/Type:</strong> <span id="modal-vehicle-model">N/A</span></p>
+                <p><strong>Capacity:</strong> <span id="modal-vehicle-capacity">N/A</span></p>
+                <p style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <i class="fas fa-info-circle"></i> This is your currently assigned vehicle.
+                </p>
+            </div>
         </div>
     </div>
 

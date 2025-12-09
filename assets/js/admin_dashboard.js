@@ -123,6 +123,7 @@ async function loadNotifications() {
         console.error("Error loading notifications", error);
     }
 }
+
 async function loadActivityFeed() {
     const list = document.getElementById('activity-feed-list');
     if (!list) return;

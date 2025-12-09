@@ -17,6 +17,22 @@ body {
     padding: 20px 0; 
 }
 
+.main-scroll-wrapper {
+    padding-bottom: 70px; /* Use a value slightly greater than the nav height (e.g., 60px + 10px buffer) */
+        }
+        
+        /* Ensure the fixed nav bar stays at the bottom and is on top of content */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensures it is always visible on top */
+    /* Add background color here if not in style.css to prevent text bleed */
+    background-color: white; 
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
+}
+
 body.dark-mode {
     background-color: #121212;
     color: #f0f0f0; 

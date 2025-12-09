@@ -10,13 +10,12 @@ if (!isset($_GET['user_id'])) {
 
 $user_id = $conn->real_escape_string($_GET['user_id']);
 
-// JOIN with Routes and Shuttles to get readable details
-// ADDED: s.status as schedule_status to check if the driver finished the trip
 $sql = "SELECT 
             b.id, 
             b.pickup_location, 
             b.dropoff_location, 
             b.status, 
+            b.payment_status, 
             b.created_at,
             s.shift_date, 
             s.start_time,
@@ -26,7 +25,7 @@ $sql = "SELECT
         FROM bookings b
         JOIN driver_schedule s ON b.driver_schedule_id = s.id
         JOIN shuttles sh ON s.shuttle_id = sh.id
-        LEFT JOIN routes r ON s.route_id = r.id  
+        LEFT JOIN routes r ON s.route_id = r.id 
         WHERE b.user_id = '$user_id'
         ORDER BY s.shift_date DESC, s.start_time DESC";
 
@@ -50,7 +49,7 @@ while($row = $result->fetch_assoc()) {
         $row['route_name'] = $row['pickup_location'] . ' → ' . $row['dropoff_location'];
     }
 
-    // --- LOGIC FIX ---
+    // --- LOGIC FIX (As discussed) ---
     
     // 1. If the driver marked the SCHEDULE as completed, move to PAST (override booking status)
     if ($row['schedule_status'] === 'completed') {

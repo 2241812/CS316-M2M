@@ -14,32 +14,20 @@ if (file_exists($db_connect_path)) {
     exit;
 }
 
+// 2. Get the user ID from the request
+$user_id = isset($_GET['user_id']) ? (int)$_GET['user_id'] : null;
 
-// 2. Get the driver's ID from the request (driver ID is also a user_id in the accounts table)
-$driver_id = isset($_GET['driver_id']) ? (int)$_GET['driver_id'] : null;
-
-if (!$driver_id) {
-    // For a driver, we'll still show announcements if their ID is missing (better than nothing)
-    $driver_id = 0; 
+if (!$user_id) {
+    echo json_encode(['success' => false, 'message' => 'User ID is required.']);
+    $conn->close();
+    exit;
 }
 
-// 3. SQL to fetch DRIVER'S personal notifications AND general announcements
 $sql = "
-    -- 1. Select personal notifications for the specific driver
-    (
-        SELECT 
-            id, message, type, is_read, created_at 
-        FROM notifications 
-        WHERE user_id = ?
-    )
-    UNION ALL
-    -- 2. Select general announcements from the separate announcement table
-    (
-        SELECT 
-            id, message, 'announcement' AS type, 0 AS is_read, created_at 
-        FROM announcements
-    )
-    
+    SELECT 
+        id, message, type, is_read, created_at 
+    FROM notifications 
+    WHERE user_id = ?
     ORDER BY created_at DESC 
     LIMIT 10
 ";
@@ -47,14 +35,16 @@ $sql = "
 $stmt = $conn->prepare($sql);
 
 if (!$stmt) {
+    // Report SQL syntax/schema errors
     echo json_encode(['success' => false, 'message' => 'SQL Prepare failed: ' . $conn->error]);
     $conn->close();
     exit;
 }
 
-$stmt->bind_param("i", $driver_id);
+$stmt->bind_param("i", $user_id);
 
 if (!$stmt->execute()) {
+    // Report execution errors
     echo json_encode(['success' => false, 'message' => 'SQL Execute failed: ' . $stmt->error]);
     $stmt->close();
     $conn->close();

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2M Admin - Cancellation Requests</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Admin Card Style */
+        .schedule-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        /* Styles for the Request Card */
+        .request-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: #fff;
+            transition: box-shadow 0.2s;
+        }
+        .request-card:hover {
+            box-shadow: 0 4px 10px rgba(224, 43, 43, 0.1); /* Subtle hover effect */
+        }
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .request-header h4 {
+            margin: 0;
+            color: #E02B2B; 
+            font-size: 16px;
+        }
+        .request-reason {
+            background: #f8f8f8;
+            border-left: 3px solid #E02B2B; /* Red indicator */
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .request-actions button {
+            margin-left: 10px;
+            padding: 8px 15px;
+            font-size: 13px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-action.success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-action.danger {
+            background: #dc3545;
+            color: white;
+        }
+        .badge.pending {
+            background: #ffc107;
+            color: #333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-text">
+                <h1 style="font-size: 24px; color: #E02B2B; font-style: italic;">M2M</h1>
+                <p style="font-size: 8px; font-weight: 700;">SHUTTLE BRAVO</p>
+            </div>
+            <i class="fas fa-times close-btn" id="close-sidebar"></i>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="admin.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="manage_schedule.html"><i class="far fa-calendar-alt"></i> Manage Schedules</a></li>
+            <li><a href="manage_cancellation_requests.html" class="active">
+                <i class="fas fa-ban"></i> Cancellation Requests
+                <span class="badge" id="cancellation-badge" style="background: #E02B2B; color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-left: 5px; display: none;"></span>
+            </a></li>
+            <li><a href="manage_shuttles.html"><i class="fas fa-bus"></i> Manage Shuttles</a></li>
+            <li><a href="manage_drivers.html"><i class="fas fa-users"></i> Manage Drivers</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="login.html" class="logout-link btn-logout" style="color: #E02B2B; font-weight: 600; cursor: pointer; text-decoration: none;">
+                <i class="fas fa-sign-out-alt" style="color: #E02B2B;"></i> Log Out
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div class="schedule-header-top" style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+            <i class="fas fa-bars menu-icon" id="menu-btn" style="cursor: pointer; font-size: 24px;"></i>
+            <h2 style="margin: 0; font-size: 24px;">Cancellation Requests</h2>
+        </div>
+
+        <div class="schedule-card">
+            <div class="page-header">
+                <h3 style="margin: 0; color: #E02B2B;">Pending Driver Requests</h3>
+                <button class="btn-action" onclick="loadCancellationRequests()" style="padding: 10px 15px;">
+                    <i class="fas fa-sync"></i> Refresh List
+                </button>
+            </div>
+            <div id="cancellation-requests-list" style="max-height: 70vh; overflow-y: auto;">
+                <p style="text-align:center; color:#999;">Loading requests...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/admin_cancellation.js"></script> 
+</body>
+</html>

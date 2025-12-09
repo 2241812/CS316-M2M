@@ -40,7 +40,60 @@
             margin-left: 10px;
         }
         .btn-verify:hover { background: #c00; }
+.bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px; /* Increased height for bigger size */
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #6c757d; 
+            font-size: 12px; /* Increased text size */
+            font-weight: 500;
+            transition: color 0.3s;
+            width: 50%; /* Ensure items take up equal space */
+        }
+        
+        /* Order 1: Profile (User Circle) will be on the left */
+        .nav-item.profile-item { 
+            order: 1; 
+        }
+
+        /* Order 2: Schedule (Route) will be on the right */
+        .nav-item.schedule-item { 
+            order: 2; 
+        }
+
+
+        .nav-item i {
+            font-size: 26px; /* Increased icon size */
+            margin-bottom: 3px;
+        }
+        
+        /* Active state color (using your M2M red: #E02B2B) */
+        .nav-item.active,
+        .nav-item:hover {
+            color: #E02B2B; 
+        }
+
+        /* Ensure content doesn't get hidden behind the fixed bar */
+        .driver-container {
+            padding-bottom: 80px; /* Increased padding to accommodate taller navbar + buffer */
+        }
     </style>
+    
 </head>
 <body>
 
@@ -94,9 +147,6 @@
             <div id="upcoming-trips-list">
             </div>
 
-            <button class="btn-action full-width warning" onclick="reportAccident()">
-                <i class="fas fa-triangle-exclamation"></i> Report Accident
-            </button>
         </div>
 
     </div>
@@ -113,9 +163,21 @@
             </ul>
         </div>
     </div>
+    ...
+        <div class="trip-card gray-card">
+            <h3 class="card-title">Upcoming Trips</h3>
+            <div id="upcoming-trips-list">
+                </div>
 
-    <!-- PASSENGER MANIFEST MODAL (NEW) -->
-   <div id="passenger-modal" class="custom-modal">
+            
+            <button class="btn-action full-width red-outline" onclick="requestCancellation()">
+                <i class="fas fa-ban"></i> Request Cancellation
+            </button>
+        </div>
+...
+
+  ...
+    <div id="passenger-modal" class="custom-modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closePassengerModal()">&times;</span>
         <div class="widget-header" style="margin-top: 0;">
@@ -126,8 +188,23 @@
     </div>
 </div>
 
+    <div class="bottom-navbar">
+        
+        <a href="driver_profile.html" class="nav-item profile-item">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+        </a>
+
+        <a href="driver.html" class="nav-item schedule-item active">
+            <i class="fas fa-route"></i>
+            <span>Schedule</span>
+        </a>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/driver.js"></script>
+</body>
+</html>
 </body>
 </html>

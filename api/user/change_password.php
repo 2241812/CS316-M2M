@@ -1,6 +1,8 @@
 <?php
+// api/user/change_password.php
 header('Content-Type: application/json');
-require_once '../../db_connect.php';
+// FIX: Changed path from ../../ to ../
+require_once '../db_connect.php'; 
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -24,7 +26,6 @@ $row = $result->fetch_assoc();
 $hash = $row['password'];
 
 // 2. Verify current password
-// Note: Checks hash OR plain text (for legacy/demo support)
 if (password_verify($current_pass, $hash) || $current_pass === $hash) {
     
     // 3. Update with NEW HASH

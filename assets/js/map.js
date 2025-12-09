@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        
         // 1. Initial Check
         checkUserBookingStatus();
 
@@ -30,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchActiveSchedules();
         
         setupPassengerCounter();
+        
+        // --- NEW: Notification Status Logic ---
+        loadNotificationStatus(); 
+        setInterval(loadNotificationStatus, 60000); // Check status every minute
+        // --- END NEW ---
         
         document.getElementById('btn-book-now').addEventListener('click', () => {
             if(selectedScheduleId) {
@@ -44,6 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('toggle-darkmode');
+
+    // Load saved preference from localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        toggle.checked = true;
+    }
+
+    toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled'); // remember preference
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    });
+});
+
 
 async function checkUserBookingStatus() {
     try {
@@ -117,14 +142,43 @@ async function checkUserBookingStatus() {
     }
 }
 
-// ... rest of your functions (fetchActiveSchedules, populateRouteDropdown, etc.) remain the same
+// --- NEW FUNCTION: Check and Update Notification Badge ---
+async function loadNotificationStatus() {
+    if (!currentUser || !currentUser.id) return;
+
+    try {
+        // NOTE: Uses the dedicated user-specific endpoint
+        const response = await fetch(`api/user/get_notifications.php?user_id=${currentUser.id}`);
+        const json = await response.json();
+        
+        // Find the notification dot element in the bottom navigation
+        const dot = document.querySelector('.bottom-nav .notification-dot');
+
+        if(json.success && json.data && dot) {
+            // Count unread notifications (where is_read is 0)
+            const unreadCount = json.data.filter(item => item.is_read === 0).length;
+            
+            if (unreadCount > 0) {
+                dot.style.display = 'block'; // Show the red dot
+            } else {
+                dot.style.display = 'none'; // Hide the red dot
+            }
+        }
+    } catch (e) {
+        // Log error but don't show to user (polling failure)
+        console.error("Error loading notification status", e);
+    }
+}
+// --- END NEW FUNCTION ---
+
+
 async function fetchActiveSchedules() {
     try {
         const response = await fetch('api/routes/get_active_schedules.php');
         const json = await response.json();
 
         if(json.success) {
-            allSchedules = json.data;      
+            allSchedules = json.data;
             populateRouteDropdown(allSchedules);
         }
     } catch (e) {
@@ -297,7 +351,7 @@ async function submitBooking() {
                 title: 'Booking Confirmed!',
                 text: 'Please present your ticket in the History tab.',
                 icon: 'success',
-                confirmButtonText: 'Go to My History'
+                confirmButtonText: 'Ok'
             }).then(() => {
                 // Instead of redirecting away, we reload to start the "Trip Scheduled" view
                 window.location.reload(); 

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('driver-pass').value;
 
             try {
-                const response = await fetch('api/admin/add_driver.php', {
+                const response = await fetch('api/admin/add_drivers.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email, password })
