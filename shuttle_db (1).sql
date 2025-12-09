@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 09, 2025 at 01:03 PM
+-- Generation Time: Dec 09, 2025 at 06:18 PM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -38,16 +38,17 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`id`, `name`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'Driver', 'driver@gmail.com', 'driver', 'driver', '2025-12-05 17:22:34', '2025-12-05 17:22:34'),
+(1, 'Driver', 'driver@gmail.com', 'driver', 'driver', '2025-12-05 17:22:34', '2025-12-09 18:18:06'),
 (2, 'Admin', 'admin@gmail.com', 'admin', 'admin', '2025-12-05 17:22:34', '2025-12-05 17:22:34'),
-(3, 'User', 'user@gmail.com', 'user', 'user', '2025-12-05 17:22:34', '2025-12-05 17:22:34');
+(3, 'User', 'user@gmail.com', '$2y$10$IpTMyVZKDasb3jetr/XZxeAoXVQqzDkD/fD7B1yDV3uh4gPifTX.2', 'user', '2025-12-05 17:22:34', '2025-12-09 18:18:09'),
+(4, 'drivernako1', 'driver2@gmail.com', '$2y$10$sr2HLzL31MYzZVxrOhMK7OefaMDJFtdEhjdqsbyEmHmFpWaYpPgKy', 'driver', '2025-12-09 15:38:19', '2025-12-09 16:30:51');
 
 -- --------------------------------------------------------
 
@@ -62,18 +63,17 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `icon` varchar(50) DEFAULT 'fa-info-circle',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `activity_logs`
 --
 
 INSERT INTO `activity_logs` (`id`, `description`, `icon`, `created_at`) VALUES
-(11, 'Created schedule for Driver #1 on 2025-12-25', 'fa-calendar-plus', '2025-12-07 11:27:52'),
-(12, 'Created schedule for Driver #1 on 2025-12-08', 'fa-calendar-plus', '2025-12-07 14:16:26'),
-(13, 'New Announcement created', 'fa-bullhorn', '2025-12-07 14:35:37'),
-(14, 'Created schedule for Driver #1 on 2025-12-10', 'fa-calendar-plus', '2025-12-09 19:40:33'),
-(15, 'New Announcement created', 'fa-bullhorn', '2025-12-09 20:06:56');
+(19, 'Created schedule for Driver #1 on 2025-12-25 at 01:45', 'fa-calendar-plus', '2025-12-10 00:32:29'),
+(20, 'Created schedule for Driver #1 on 2025-12-25 at 02:58', 'fa-calendar-plus', '2025-12-10 00:56:33'),
+(21, 'Created schedule for Driver #1 on 2025-12-25 at 02:32', 'fa-calendar-plus', '2025-12-10 01:31:44'),
+(22, 'Created schedule for Driver #1 on 2025-12-25 at 03:35', 'fa-calendar-plus', '2025-12-10 01:33:35');
 
 -- --------------------------------------------------------
 
@@ -116,18 +116,7 @@ CREATE TABLE IF NOT EXISTS `bookings` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `driver_schedule_id` (`driver_schedule_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `bookings`
---
-
-INSERT INTO `bookings` (`id`, `user_id`, `driver_schedule_id`, `pickup_location`, `dropoff_location`, `status`, `payment_status`, `reminder_sent`, `created_at`, `updated_at`) VALUES
-(19, 3, 37, 'SLU Maryheights', 'SLU Main Campus', 'cancelled', 'paid', 0, '2025-12-09 11:38:37', '2025-12-09 11:41:40'),
-(20, 3, 39, 'SLU MaryHeights', 'BGH', 'cancelled', 'unpaid', 0, '2025-12-09 11:41:50', '2025-12-09 11:57:16'),
-(21, 3, 37, 'SLU Maryheights', 'SLU Main Campus', 'cancelled', 'paid', 0, '2025-12-09 12:00:57', '2025-12-09 12:01:11'),
-(22, 3, 37, 'SLU Maryheights', 'SLU Main Campus', 'cancelled', 'unpaid', 0, '2025-12-09 12:01:16', '2025-12-09 12:03:21'),
-(23, 3, 39, 'SLU MaryHeights', 'BGH', 'pending', 'unpaid', 0, '2025-12-09 12:03:27', '2025-12-09 12:03:27');
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -151,15 +140,16 @@ CREATE TABLE IF NOT EXISTS `driver_schedule` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `driver_id` (`driver_id`,`shift_date`,`start_time`),
   KEY `shuttle_id` (`shuttle_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `driver_schedule`
 --
 
 INSERT INTO `driver_schedule` (`id`, `driver_id`, `shuttle_id`, `route_id`, `shift_date`, `start_time`, `end_time`, `max_capacity`, `status`, `created_at`, `updated_at`) VALUES
-(37, 1, 3, 8, '2025-12-25', '07:30:00', '00:00:00', 0, 'scheduled', '2025-12-07 03:27:52', '2025-12-07 03:27:52'),
-(39, 1, 3, 17, '2025-12-10', '07:50:00', '00:00:00', 0, 'scheduled', '2025-12-09 11:40:33', '2025-12-09 11:40:33');
+(45, 1, 1, 16, '2025-12-25', '03:35:00', '00:00:00', 0, 'cancelled', '2025-12-09 17:33:35', '2025-12-09 17:34:08'),
+(43, 1, 1, 8, '2025-12-25', '02:58:00', '00:00:00', 0, 'cancelled', '2025-12-09 16:56:33', '2025-12-09 17:27:32'),
+(44, 1, 1, 11, '2025-12-25', '02:32:00', '00:00:00', 0, 'cancelled', '2025-12-09 17:31:44', '2025-12-09 17:32:45');
 
 -- --------------------------------------------------------
 
@@ -177,18 +167,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_notifications_user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`id`, `user_id`, `message`, `type`, `is_read`, `created_at`) VALUES
-(52, 3, '🎉 Booking Accepted! Your ride on the \'Maryheights to Main\' route on Dec 25, 2025 departing at 07:30 AM is confirmed.', 'booking_accepted', 0, '2025-12-09 11:38:37'),
-(53, 3, '⏳ Booking Pending! Your ride on the \'SLU MaryHeights To BGH\' route on Dec 10, 2025 is pending payment. Please pay the driver upon boarding.', 'booking_pending', 0, '2025-12-09 11:41:50'),
-(54, 3, '🎉 Booking Accepted! Your ride on the \'Maryheights to Main\' route on Dec 25, 2025 departing at 07:30 AM is confirmed.', 'booking_accepted', 0, '2025-12-09 12:00:57'),
-(55, 3, '⏳ Booking Pending! Your ride on the \'Maryheights to Main\' route on Dec 25, 2025 is pending payment. Please pay the driver upon boarding.', 'booking_pending', 0, '2025-12-09 12:01:16'),
-(56, 3, '⏳ Booking Pending! Your ride on the \'SLU MaryHeights To BGH\' route on Dec 10, 2025 is pending payment. Please pay the driver upon boarding.', 'booking_pending', 0, '2025-12-09 12:03:27');
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -206,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `booking_id` (`booking_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `payments`
@@ -220,7 +199,42 @@ INSERT INTO `payments` (`id`, `booking_id`, `amount`, `payment_date`, `payment_m
 (17, 20, 25.00, '2025-12-09 11:41:50', 'cash', '2025-12-09 11:41:50'),
 (18, 21, 25.00, '2025-12-09 12:00:57', 'online', '2025-12-09 12:00:57'),
 (19, 22, 25.00, '2025-12-09 12:01:16', 'cash', '2025-12-09 12:01:16'),
-(20, 23, 25.00, '2025-12-09 12:03:27', 'cash', '2025-12-09 12:03:27');
+(20, 23, 25.00, '2025-12-09 12:03:27', 'cash', '2025-12-09 12:03:27'),
+(21, 24, 25.00, '2025-12-09 14:29:50', 'online', '2025-12-09 14:29:50'),
+(22, 25, 25.00, '2025-12-09 14:30:50', 'online', '2025-12-09 14:30:50'),
+(23, 26, 25.00, '2025-12-09 14:31:05', 'online', '2025-12-09 14:31:05'),
+(24, 27, 25.00, '2025-12-09 14:31:47', 'online', '2025-12-09 14:31:47'),
+(25, 28, 25.00, '2025-12-09 14:32:14', 'online', '2025-12-09 14:32:14'),
+(26, 29, 25.00, '2025-12-09 14:32:28', 'online', '2025-12-09 14:32:28'),
+(27, 30, 25.00, '2025-12-09 14:32:36', 'online', '2025-12-09 14:32:36'),
+(28, 31, 25.00, '2025-12-09 14:32:55', 'online', '2025-12-09 14:32:55'),
+(29, 32, 25.00, '2025-12-09 14:36:04', 'GCASH', '2025-12-09 14:36:04'),
+(30, 33, 25.00, '2025-12-09 14:41:54', 'online', '2025-12-09 14:41:54'),
+(31, 34, 25.00, '2025-12-09 14:42:54', 'cash', '2025-12-09 14:42:54'),
+(32, 35, 25.00, '2025-12-09 14:49:28', 'cash', '2025-12-09 14:49:28'),
+(33, 36, 25.00, '2025-12-09 14:50:02', 'cash', '2025-12-09 14:50:02'),
+(34, 37, 25.00, '2025-12-09 14:50:50', 'cash', '2025-12-09 14:50:50'),
+(35, 38, 25.00, '2025-12-09 14:51:31', 'online', '2025-12-09 14:51:31'),
+(36, 39, 25.00, '2025-12-09 14:53:43', 'cash', '2025-12-09 14:53:43'),
+(37, 39, 25.00, '2025-12-09 14:56:46', 'online', '2025-12-09 14:56:46'),
+(38, 40, 25.00, '2025-12-09 14:56:57', 'cash', '2025-12-09 14:56:57'),
+(39, 40, 25.00, '2025-12-09 14:57:01', 'online', '2025-12-09 14:57:01'),
+(40, 41, 25.00, '2025-12-09 14:58:00', 'cash', '2025-12-09 14:58:00'),
+(41, 41, 25.00, '2025-12-09 14:58:04', 'online', '2025-12-09 14:58:04'),
+(42, 42, 25.00, '2025-12-09 14:59:40', 'cash', '2025-12-09 14:59:40'),
+(43, 42, 25.00, '2025-12-09 14:59:58', 'online', '2025-12-09 14:59:58'),
+(44, 43, 25.00, '2025-12-09 15:00:09', 'cash', '2025-12-09 15:00:09'),
+(45, 43, 25.00, '2025-12-09 15:01:19', 'online', '2025-12-09 15:01:19'),
+(46, 44, 25.00, '2025-12-09 15:01:29', 'cash', '2025-12-09 15:01:29'),
+(47, 44, 25.00, '2025-12-09 15:01:34', 'online', '2025-12-09 15:01:34'),
+(48, 45, 25.00, '2025-12-09 15:08:17', 'cash', '2025-12-09 15:08:17'),
+(49, 45, 25.00, '2025-12-09 15:08:20', 'online', '2025-12-09 15:08:20'),
+(50, 46, 25.00, '2025-12-09 16:31:13', 'cash', '2025-12-09 16:31:13'),
+(51, 46, 25.00, '2025-12-09 16:31:17', 'online', '2025-12-09 16:31:17'),
+(52, 47, 25.00, '2025-12-09 16:59:56', 'cash', '2025-12-09 16:59:56'),
+(53, 47, 25.00, '2025-12-09 17:00:00', 'online', '2025-12-09 17:00:00'),
+(54, 48, 25.00, '2025-12-09 17:32:23', 'online', '2025-12-09 17:32:23'),
+(55, 49, 25.00, '2025-12-09 17:33:57', 'online', '2025-12-09 17:33:57');
 
 -- --------------------------------------------------------
 
@@ -272,17 +286,16 @@ INSERT INTO `routes` (`id`, `name`, `start_location`, `end_location`, `created_a
 DROP TABLE IF EXISTS `schedule_cancellation_requests`;
 CREATE TABLE IF NOT EXISTS `schedule_cancellation_requests` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `driver_schedule_id` int NOT NULL,
   `driver_id` int NOT NULL,
+  `schedule_id` int NOT NULL,
   `reason` text NOT NULL,
-  `status` enum('pending','approved','rejected') DEFAULT 'pending',
+  `request_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
   `admin_notes` text,
-  `requested_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `processed_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `schedule_id` (`driver_schedule_id`),
-  KEY `driver_id` (`driver_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `driver_id` (`driver_id`),
+  KEY `schedule_id` (`schedule_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -295,6 +308,7 @@ CREATE TABLE IF NOT EXISTS `shuttles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `plate_number` varchar(20) NOT NULL,
   `capacity` int NOT NULL,
+  `route_id` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `current_lat` decimal(10,8) DEFAULT '16.41639000',
@@ -308,10 +322,10 @@ CREATE TABLE IF NOT EXISTS `shuttles` (
 -- Dumping data for table `shuttles`
 --
 
-INSERT INTO `shuttles` (`id`, `plate_number`, `capacity`, `created_at`, `updated_at`, `current_lat`, `current_lng`, `last_updated`) VALUES
-(1, 'M2M-007', 20, '2025-12-03 15:59:05', '2025-12-05 15:46:29', 16.41639000, 120.59333000, '2025-12-03 15:59:05'),
-(2, 'M2M-008', 30, '2025-12-03 15:59:05', '2025-12-05 15:46:27', 16.41639000, 120.59333000, '2025-12-03 15:59:05'),
-(3, 'BRAVO-101', 25, '2025-12-03 15:59:05', '2025-12-05 15:57:21', 16.41639000, 120.59333000, '2025-12-03 15:59:05');
+INSERT INTO `shuttles` (`id`, `plate_number`, `capacity`, `route_id`, `created_at`, `updated_at`, `current_lat`, `current_lng`, `last_updated`) VALUES
+(1, 'M2M-007', 20, NULL, '2025-12-03 15:59:05', '2025-12-05 15:46:29', 16.41639000, 120.59333000, '2025-12-03 15:59:05'),
+(2, 'M2M-008', 30, NULL, '2025-12-03 15:59:05', '2025-12-05 15:46:27', 16.41639000, 120.59333000, '2025-12-03 15:59:05'),
+(3, 'BRAVO-101', 25, NULL, '2025-12-03 15:59:05', '2025-12-05 15:57:21', 16.41639000, 120.59333000, '2025-12-03 15:59:05');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
