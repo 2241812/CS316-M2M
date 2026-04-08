@@ -69,4 +69,4 @@ Open your browser and go to http://localhost/CS316-M2M.
 # Contributors
 Project Lead: Javier III Narciso
 
-Contributor: Brent Menos - 
+Contributor: Brent Menos - https://github.com/BrentMenos
